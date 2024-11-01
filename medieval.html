@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval India Timeline</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5ebe0;
+            color: #2b2b2b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #594545;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-container {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .period-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #815B5B;
+            margin-bottom: 1rem;
+        }
+
+        .event-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .event-container.active {
+            display: block;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-title {
+            font-size: 1.4rem;
+            color: #594545;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .event-description {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background-color: #815B5B;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #594545;
+        }
+
+        .nav-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #ddd;
+            border-radius: 2px;
+            margin: 2rem 0;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #815B5B;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .event-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Medieval India Timeline</h1>
+            <p>Journey through the rich history of Medieval India (8th - 18th Century)</p>
+        </header>
+
+        <div class="timeline-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div id="content">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <div class="navigation">
+                <button class="nav-button" id="prevBtn" onclick="navigate(-1)">Previous</button>
+                <button class="nav-button" id="nextBtn" onclick="navigate(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const events = [
+            {
+                period: "The Rise of Regional Kingdoms (c. 700-1000)",
+                title: "Chalukyas of Badami (543-753 CE)",
+                image: "https://www.travel-video.info/images/Thumbnails4Facebook/Badami_EN_4FB.jpg",
+                description: "The Chalukyas ruled much of Karnataka and were known for art and architecture, especially the rock-cut temples at Badami and the structural temples at Pattadakal."
+            },
+            {
+                period: "The Rise of Regional Kingdoms (c. 700-1000)",
+                title: "Pallavas of Kanchipuram (600-900 CE)",
+                image: "https://vajiram-prod.s3.ap-south-1.amazonaws.com/434b_Pallavas_of_Kanchi_0755e95700_9319de4aba.jpg",
+                description: "The Pallavas ruled parts of Tamil Nadu, especially noted for their contributions to Dravidian architecture, such as the rock-cut and structural temples at Mahabalipuram."
+            },
+            {
+                period: "The Rise of Regional Kingdoms (c. 700-1000)",
+                title: "Rashtrakutas (753-982 CE)",
+                image: "https://mapacademy.io/wp-content/uploads/2022/09/dashavatara-cave-ellora-3l.jpg",
+                description: "They ruled large parts of the Deccan and were known for patronizing art and literature. The Ellora caves, including the famous Kailasa Temple, were constructed under their rule."
+            },
+            {
+                period: "The Rise of Regional Kingdoms (c. 700-1000)",
+                title: "Pratiharas (750-1036 CE)",
+                image: "https://i.pinimg.com/originals/2e/8e/4c/2e8e4c049c88a167d37076b9011f6f46.jpg",
+                description: "Known for resisting Arab invasions in western India, this dynasty ruled over much of northern India and helped protect the subcontinent from early Islamic invasions."
+            },
+            {
+                period: "The Rise of Regional Kingdoms (c. 700-1000)",
+                title: "Palas (750-1174 CE)",
+                image: "https://www.bengalchronicle.com/wp-content/uploads/2021/02/Pala-Nalanda.jpg",
+                description: "Based in Bengal and Bihar, the Palas promoted Buddhism, particularly the construction of the great monastic university at Nalanda."
+            },
+            {
+                period: "The Invasions and Early Islamic Rule (1000-1200)",
+                title: "Mahmud of Ghazni's Raids (1000-1025 CE)",
+                image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Mahmud_in_robe_from_the_caliph.jpg",
+                description: "Mahmud, the ruler of Ghazni, launched multiple raids into India, targeting rich temples such as Somnath. Although he did not establish permanent control, his invasions weakened Indian kingdoms."
+            },
+            {
+                period: "The Invasions and Early Islamic Rule (1000-1200)",
+                title: "Ghurid Invasion (1175-1192 CE)",
+                image: "https://drishtiias.com/images/uploads/1670228727_Ghurid_Empire_Drsihti_IAS_English.png",
+                description: "Muhammad of Ghor defeated Prithviraj Chauhan at the Second Battle of Tarain (1192) and laid the foundation for Muslim rule in North India."
+            },
+            {
+                period: "Delhi Sultanate (1206-1526)",
+                title: "Mamluk Dynasty (1206-1290)",
+                image: "https://c8.alamy.com/comp/JMD8H0/the-death-of-qub-al-dn-aibak-as-a-result-of-a-fall-from-his-horse-JMD8H0.jpg",
+                description: "Also known as the Slave Dynasty, rulers like Qutb-ud-din Aibak and Iltutmish strengthened the Sultanate's rule. The famous Qutb Minar was begun during this period."
+            },
+            {
+                period: "Delhi Sultanate (1206-1526)",
+                title: "Khilji Dynasty (1290-1320)",
+                image: "https://pbs.twimg.com/media/FAJhpwgXsAkWJbY.jpg",
+                description: "Alauddin Khilji expanded the Sultanate's control, leading successful campaigns in the Deccan and implementing economic reforms to prevent noble rebellions."
+            },
+            {
+                period: "Delhi Sultanate (1206-1526)",
+                title: "Tughlaq Dynasty (1320-1414)",
+                image: "https://thedispatch.blob.core.windows.net/thedispatchimages/2024/03/Tughlaq-Dynasty-The-Dispatch.jpg",
+                description: "Muhammad bin Tughlaq, known for his ambitious yet failed reforms (shifting the capital to Daulatabad and introducing token currency), ruled during this time. Firoz Shah Tughlaq succeeded him, promoting welfare measures."
+            },
+            {
+                period: "The Vijayanagara Empire (1336-1646)",
+                title: "Founding and Golden Age",
+                image: "https://lh4.googleusercontent.com/proxy/Rfaa8rLttdjeryKEqy0cR-P0CxDqIToktPR3S6dg8RjFbEMe2sHb2y3gMMWjqHZJ-pZl7AHtxyChEILZeLJXEjUeGuXIhU4KQjtnd_fq4myfBVS0JIW8",
+                description: "Established by Harihara I and Bukka Raya in 1336, the empire reached its peak under Krishna Deva Raya (1509-1529). It promoted Hindu culture and saw significant advancements in art, literature, and architecture at Hampi."
+            },
+            {
+                period: "Mughal Empire (1526-1707)",
+                title: "Babur's Establishment (1526-1530)",
+                image: "https://i.ytimg.com/vi/h6DPlZr4nKo/maxresdefault.jpg",
+                description: "The First Battle of Panipat (1526) established the Mughal Empire in India. Babur introduced gunpowder warfare and consolidated power in North India."
+            },
+            {
+                period: "Mughal Empire (1526-1707)",
+                title: "Akbar's Reign (1556-1605)",
+                image: "https://i0.wp.com/glimpsesofhistory.com/wp-content/uploads/2020/08/Akbar.jpg?fit=1024%2C758&ssl=1",
+                description: "Akbar expanded the empire and established a centralized administration. His policy of religious tolerance and patronage of the arts marked a high point in Mughal culture."
+            },
+            {
+                period: "Mughal Empire (1526-1707)",
+                title: "Shah Jahan's Era (1628-1658)",
+                image: "https://c.files.bbci.co.uk/17A17/production/_98119769_hi029320149.jpg",
+                description: "Known for building the Taj Mahal, Shah Jahan's reign saw architectural advancements but ended with a succession struggle among his sons."
+            },
+            {
+                period: "Mughal Empire (1526-1707)",
+                title: "Aurangzeb's Reign (1658-1707)",
+                image: "https://cdn.britannica.com/07/1607-050-8EAAF9B0/Development-Mughal-Empire.jpg",
+                description: "Aurangzeb expanded the empire to its greatest extent but his strict policies led to revolts by the Marathas, Sikhs, and Rajputs, weakening Mughal control."
+            },
+            {
+                period: "Rise of Regional Powers (18th Century)",
+                title: "Maratha Empire",
+                image: "https://i.ytimg.com/vi/EzSX8ZolFwA/sddefault.jpg?v=6651e116",
+                description: "Led by Shivaji Maharaj in the 17th century, the Maratha Confederacy became a dominant power in the 18th century, challenging the Mughals and expanding into North India."
+            },
+            {
+                period: "Rise of Regional Powers (18th Century)",
+                title: "Kingdom of Mysore",
+                image: "https://securityworldbd.com/public/image/xos34k3qNNk53EOyEBGQ.jpg",
+                description: "Hyder Ali and his son Tipu Sultan resisted British expansion, particularly in the Anglo-Mysore Wars (1767-1799), before Mysore fell to British control."
+            },
+            {
+                period: "End of Medieval India",
+                title: "Battle of Plassey (1757)",
+                image: "https://www.nam.ac.uk/sites/default/files/styles/related_mobile/public/2017-06/173414_slide.jpg.webp?itok=BZ4Jv2r4",
+                description: "The British East India Company defeated the Nawab of Bengal, marking the beginning of British dominance in India and the end of the medieval period."
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function updateContent() {
+            const event = events[currentIndex];
+            const content = document.getElementById('content');
+            const progress = document.getElementById('progress');
+            
+            content.innerHTML = `
+                <h2 class="period-title">${event.period}</h2>
+                <div class="event-container active">
+                    <img src="${event.image}" alt="${event.title}" class="event-image">
+                    <h3 class="event-title">${event.title}</h3>
+                    <p class="event-description">${event.description}</p>
+                </div>
+            `;
+
+            // Update progress bar
+            const progressWidth = ((currentIndex + 1) / events.length) * 100;
+            progress.style.width = `${progressWidth}%`;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === events.length - 1;
+        }
+
+        function navigate(direction) {
+            currentIndex = Math.max(0, Math.min(events.length - 1, currentIndex + direction));
+            updateContent();
+        }
+
+        // Initialize the first event
+        updateContent();
+    </script>
+</body>
+</html>

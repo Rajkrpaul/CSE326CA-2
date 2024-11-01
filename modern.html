@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern India Timeline</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e8f5e9;
+            color: #2b2b2b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1b5e20;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-container {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .period-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .event-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .event-container.active {
+            display: block;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-title {
+            font-size: 1.4rem;
+            color: #388e3c;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .event-description {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background-color: #43a047;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #2e7d32;
+        }
+
+        .nav-button:disabled {
+            background-color: #c8e6c9;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e8f5e9;
+            border-radius: 2px;
+            margin: 2rem 0;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #43a047;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .event-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modern India Timeline</h1>
+            <p>Journey through the history of Modern India (1707 - 1950)</p>
+        </header>
+
+        <div class="timeline-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div id="content">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <div class="navigation">
+                <button class="nav-button" id="prevBtn" onclick="navigate(-1)">Previous</button>
+                <button class="nav-button" id="nextBtn" onclick="navigate(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const events = [
+            {
+                period: "Decline of Mughal Empire and Rise of Regional Powers (1707–1757)",
+                title: "Death of Aurangzeb (1707)",
+                image: "https://pbs.twimg.com/media/FqSGOr_XwAAi-ur.jpg",
+                description: "Aurangzeb, the last powerful Mughal emperor, dies, leading to the decline of the Mughal Empire. Regional powers like the Marathas, Nawabs of Bengal, Hyderabad, and Mysore gain prominence."
+            },
+            {
+                period: "Decline of Mughal Empire and Rise of Regional Powers (1707–1757)",
+                title: "Maratha Expansion (1720s–1740s)",
+                image: "https://kesariexpress.com/wp-content/uploads/2024/02/marathaempier.png",
+                description: "The Maratha Empire expands under the Peshwas and becomes a major power in northern and central India."
+            },
+            {
+                period: "Decline of Mughal Empire and Rise of Regional Powers (1707–1757)",
+                title: "Nadir Shah's Invasion (1739)",
+                image: "https://qph.cf2.quoracdn.net/main-qimg-57d3d845cbe2833ef3347df7e4a979c9-lq",
+                description: "Nadir Shah, the Persian ruler, invades Delhi, looting and weakening the Mughal Empire further. The invasion accelerates the fragmentation of the empire."
+            },
+            {
+                period: "Establishment of British Rule (1757–1857)",
+                title: "Battle of Plassey (1757)",
+                image: "https://warfarehistorynetwork.com/wp-content/uploads/2022/08/M-Plassey-1-4C-Feb14.jpg",
+                description: "The British East India Company, led by Robert Clive, defeats Siraj-ud-Daula, the Nawab of Bengal. This victory establishes British political and economic dominance in Bengal."
+            },
+            {
+                period: "Establishment of British Rule (1757–1857)",
+                title: "Battle of Buxar (1764)",
+                image: "https://i0.wp.com/civilaspirant.in/wp-content/uploads/2020/06/battle-of-bauxar.jpg?fit=816%2C459&ssl=1",
+                description: "The East India Company defeats the combined forces of the Nawab of Awadh, the Mughal Emperor, and the Nawab of Bengal, consolidating control over Bengal, Bihar, and Odisha."
+            },
+            {
+                period: "Establishment of British Rule (1757–1857)",
+                title: "Sati Prohibition Act (1829)",
+                image: "https://upload.wikimedia.org/wikipedia/commons/5/54/Suttee._Wellcome_V0041335.jpg",
+                description: "Lord William Bentinck, the Governor-General, abolishes the practice of sati (widow immolation) due to reformist efforts by leaders like Raja Ram Mohan Roy."
+            },
+            {
+                period: "The Revolt of 1857 and its Aftermath (1857–1885)",
+                title: "First War of Independence (1857)",
+                image: "https://akm-img-a-in.tosshub.com/indiatoday/war4_647_051016102600.jpg",
+                description: "A major rebellion erupts among Indian soldiers (sepoys) in the British army, fueled by widespread dissatisfaction with British policies. The British suppress the revolt, but it has lasting impacts on both sides."
+            },
+            {
+                period: "The Revolt of 1857 and its Aftermath (1857–1885)",
+                title: "Government of India Act (1858)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx2Mph5XIgXDMDzSN0McY3it7D8fHanpSPpw&s",
+                description: "The British Crown takes direct control of India from the East India Company, marking the beginning of the British Raj."
+            },
+            {
+                period: "Rise of Nationalism and Freedom Movements (1885–1919)",
+                title: "Founding of Indian National Congress (1885)",
+                image: "https://res.cloudinary.com/dkplc2mbj/image/upload/v1600173756/1_96d58a84f6.jpg",
+                description: "Indian National Congress (INC) is founded by Allan Octavian Hume and other British and Indian intellectuals, initially seeking greater political involvement for Indians under British rule."
+            },
+            {
+                period: "Rise of Nationalism and Freedom Movements (1885–1919)",
+                title: "Partition of Bengal (1905)",
+                image: "https://akm-img-a-in.tosshub.com/indiatoday/images/bodyeditor/201810/bengal_partition-x535.jpg?L_7Q_NvAcDemFQdJ9OS.PVaGyM8vKopt",
+                description: "Lord Curzon divides Bengal along religious lines, provoking strong opposition and sparking the Swadeshi Movement, which encourages Indians to boycott British goods."
+            },
+            {
+                period: "Intensified Struggle for Independence (1920–1942)",
+                title: "Non-Cooperation Movement (1920–1922)",
+                image: "https://indianmediastudies.com/wp-content/uploads/2024/04/Non-Cooperation-Movement.jpg.webp",
+                description: "Led by Gandhi, this mass protest encourages Indians to boycott British institutions, services, and goods. The movement ends after the Chauri Chaura incident, where violence erupts."
+            },
+            {
+                period: "Intensified Struggle for Independence (1920–1942)",
+                title: "Dandi March (1930)",
+                image: "https://th-i.thgim.com/public/migration_catalog/article16314896.ece/alternates/FREE_1200/TH06_DANDI_MARCH",
+                description: "Gandhi leads a 240-mile march to the coastal village of Dandi to protest the British monopoly on salt production, sparking the Civil Disobedience Movement."
+            },
+            {
+                period: "End of British Rule and Independence (1945–1947)",
+                title: "Mountbatten Plan (June 3, 1947)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCM7CcXK6Wn0_qo6KfMZml4APYIqF80PE8Lw&s",
+                description: "Lord Mountbatten, the last Viceroy of India, announces a plan for the partition of British India into two independent dominions: India and Pakistan."
+            },
+            {
+                period: "End of British Rule and Independence (1945–1947)",
+                title: "Indian Independence (August 15, 1947)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXVuDMErhenN-wg-al-HRTc__aeI64C0ZrxA&s",
+                description: "India gains independence from British rule, and Pakistan is created as a separate nation. Jawaharlal Nehru becomes India's first Prime Minister."
+            },
+            {
+                period: "Post-Independence Developments (1947–1950)",
+                title: "Assassination of Mahatma Gandhi (January 30, 1948)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTD8WQPPKCR2ns-PGOTXm2nLkg5YxWmzQ3DA&s",
+                description: "Gandhi is assassinated by Nathuram Godse, a Hindu nationalist, in Delhi, shocking the nation."
+            },
+            {
+                period: "Post-Independence Developments (1947–1950)",
+                title: "Republic of India (January 26, 1950)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAYejEdpTPbk1j0hLmy58iEqLePAoMBiLjg&s",
+                description: "India formally adopts its Constitution and becomes a republic, with Dr. Rajendra Prasad as its first President."
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function updateContent() {
+            const event = events[currentIndex];
+            const content = document.getElementById('content');
+            const progress = document.getElementById('progress');
+            
+            content.innerHTML = `
+                <h2 class="period-title">${event.period}</h2>
+                <div class="event-container active">
+                    <img src="${event.image}" alt="${event.title}" class="event-image">
+                    <h3 class="event-title">${event.title}</h3>
+                    <p class="event-description">${event.description}</p>
+                </div>
+            `;
+
+            // Update progress bar
+            const progressWidth = ((currentIndex + 1) / events.length) * 100;
+            progress.style.width = `${progressWidth}%`;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === events.length - 1;
+        }
+
+        function navigate(direction) {
+            currentIndex = Math.max(0, Math.min(events.length - 1, currentIndex + direction));
+            updateContent();
+        }
+
+        // Initialize the first event
+        updateContent();
+    </script>
+</body>
+</html>

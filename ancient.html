@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient India Timeline</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e3f2fd;
+            color: #2b2b2b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1a237e;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-container {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .period-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #303f9f;
+            margin-bottom: 1rem;
+        }
+
+        .event-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .event-container.active {
+            display: block;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-title {
+            font-size: 1.4rem;
+            color: #283593;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .event-description {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            background-color: #3949ab;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #283593;
+        }
+
+        .nav-button:disabled {
+            background-color: #c5cae9;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e8eaf6;
+            border-radius: 2px;
+            margin: 2rem 0;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #3949ab;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .event-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ancient India Timeline</h1>
+            <p>Journey through the rich history of Ancient India (3300 BCE - 1206 CE)</p>
+        </header>
+
+        <div class="timeline-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div id="content">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <div class="navigation">
+                <button class="nav-button" id="prevBtn" onclick="navigate(-1)">Previous</button>
+                <button class="nav-button" id="nextBtn" onclick="navigate(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const events = [
+            {
+                period: "Indus Valley Civilization (3300-1300 BCE)",
+                title: "Early Harappan Phase (3300-2600 BCE)",
+                image: "https://ruchikaliveblog.wordpress.com/wp-content/uploads/2017/09/untitled-design-3-2.png?w=1088",
+                description: "The rise of the Indus Valley Civilization with settlements in modern-day Pakistan and northwest India. The early cities show advanced agriculture and trade networks."
+            },
+            {
+                period: "Indus Valley Civilization (3300-1300 BCE)",
+                title: "Mature Harappan Phase (2600-1900 BCE)",
+                image: "https://i.ytimg.com/vi/_Adc0JKXZZM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAqkl4nDht48Af5VYmT7dYr_IWB6g",
+                description: "Peak of the IVC with major cities like Harappa, Mohenjo-Daro, Dholavira, and Lothal, known for their advanced urban planning, drainage systems, and standardized weights and measures. The civilization's script remains undeciphered."
+            },
+            {
+                period: "Indus Valley Civilization (3300-1300 BCE)",
+                title: "Late Harappan Phase (1900-1300 BCE)",
+                image: "https://www.harappa.com/sites/default/files/slides/late-harappan-localization-map.jpg",
+                description: "The decline of the Indus Valley Civilization likely due to climatic changes, shifting rivers, and possible invasions. Cities were gradually abandoned, leading to the transition into the Vedic period."
+            },
+            {
+                period: "Vedic Period (1500-500 BCE)",
+                title: "Early Vedic Period (1500-1200 BCE)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-_ql1hCAvMuRhYbmxmBHFdUrMjEFdFQiv2w&s",
+                description: "The arrival of Indo-Aryans into the Indian subcontinent, bringing with them the early Vedic culture. The Rigveda, the oldest of the Vedic texts, is composed during this period."
+            },
+            {
+                period: "Vedic Period (1500-500 BCE)",
+                title: "Later Vedic Period (1200-800 BCE)",
+                image: "https://learncomrades.com/wp-content/uploads/2024/01/later.png",
+                description: "The composition of the other three Vedas—Sama Veda, Yajur Veda, and Atharva Veda—as well as the Brahmanas and Aranyakas. Society becomes more complex, with the emergence of kingdoms and the caste system."
+            },
+            {
+                period: "Mahajanapada Period (600-300 BCE)",
+                title: "Rise of the Sixteen Mahajanapadas (600 BCE)",
+                image: "https://gyaanbook.com/wp-content/uploads/2024/08/IMG_20230128_112138_1.jpg",
+                description: "Sixteen Mahajanapadas (great kingdoms) emerge, including Magadha, Kosala, Kashi, Avanti, and Vatsa. This period marks the first major urbanization in the Ganges Valley."
+            },
+            {
+                period: "Mahajanapada Period (600-300 BCE)",
+                title: "Birth of Buddhism (563 BCE)",
+                image: "https://media-en.thaythichtructhaiminh.com/files/image/2022/05/04/buddha-ba-vang-pagoda.jpg",
+                description: "Siddhartha Gautama, later known as the Buddha, is born in Lumbini. He eventually establishes Buddhism, which becomes a major religion in the region."
+            },
+            {
+                period: "Rise of the Maurya Empire (500-180 BCE)",
+                title: "Chandragupta Maurya (321 BCE)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcu3J_4SkpEhlShcyPZj1rod5Ci87C0SKqYA&s",
+                description: "Chandragupta Maurya establishes the Maurya Empire, overthrowing the Nanda Dynasty with the guidance of his advisor, Chanakya. The empire expands across much of northern and central India."
+            },
+            {
+                period: "Rise of the Maurya Empire (500-180 BCE)",
+                title: "Ashoka the Great (273-232 BCE)",
+                image: "https://i.ytimg.com/vi/Ed6UZtVTI64/maxresdefault.jpg",
+                description: "Reign of Ashoka the Great, who expands the Maurya Empire to cover most of the Indian subcontinent. After the Kalinga War, Ashoka embraces Buddhism and spreads it across Asia."
+            },
+            {
+                period: "Post-Mauryan Period (200 BCE-300 CE)",
+                title: "Rise of Regional Powers (200 BCE-100 CE)",
+                image: "https://cdn.slidesharecdn.com/ss_thumbnails/thepostmauryanperiod-211031121532-thumbnail.jpg?width=640&height=640&fit=bounds",
+                description: "The rise of regional powers, including the Shungas in central India, the Satavahanas in the Deccan, and the Indo-Greeks in the northwest. The Indo-Greeks introduce Hellenistic art influences and coinage."
+            },
+            {
+                period: "Gupta Empire (320-550 CE)",
+                title: "Golden Age of India (320-550 CE)",
+                image: "https://cdn.kastatic.org/ka-perseus-images/2ecb202f8f40005b9a3a66ef46483547ee6b65d0.png",
+                description: "Chandragupta I establishes the Gupta Empire, leading to advancements in science, literature, mathematics, and astronomy. Aryabhata proposes the concept of zero and calculates the value of pi."
+            },
+            {
+                period: "Post-Gupta Period (550-1200 CE)",
+                title: "Rise of Regional Kingdoms (606-647 CE)",
+                image: "https://99notes.in/wp-content/uploads/2024/07/chaluka-and-pallava.jpg",
+                description: "Harsha Vardhana establishes a kingdom in North India, while the Chalukyas and Pallavas emerge in southern India, contributing significantly to Dravidian temple architecture."
+            },
+            {
+                period: "End of Ancient Period (1206 CE)",
+                title: "Transition to Medieval India (1206 CE)",
+                image: "https://st.adda247.com/https://www.studyiq.com/articles/wp-content/uploads/2023/03/17205520/DELHI-SULTANATE.jpg",
+                description: "The establishment of the Delhi Sultanate marks the end of ancient India and the beginning of medieval history, with Qutb-ud-din Aibak as the first Sultan."
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function updateContent() {
+            const event = events[currentIndex];
+            const content = document.getElementById('content');
+            const progress = document.getElementById('progress');
+            
+            content.innerHTML = `
+                <h2 class="period-title">${event.period}</h2>
+                <div class="event-container active">
+                    <img src="${event.image}" alt="${event.title}" class="event-image">
+                    <h3 class="event-title">${event.title}</h3>
+                    <p class="event-description">${event.description}</p>
+                </div>
+            `;
+
+            // Update progress bar
+            const progressWidth = ((currentIndex + 1) / events.length) * 100;
+            progress.style.width = `${progressWidth}%`;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === events.length - 1;
+        }
+
+        function navigate(direction) {
+            currentIndex = Math.max(0, Math.min(events.length - 1, currentIndex + direction));
+            updateContent();
+        }
+
+        // Initialize the first event
+        updateContent();
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMELINES</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+            background-color: #1a1a2e;
+        }
+
+        .bg-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        #bg1 {
+            top: 0;
+            left: 0;
+            clip-path: polygon(0 0, 50% 0, 0 100%);
+            background-image: url(https://render.fineartamerica.com/images/rendered/default/print/8/5.5/break/images/artworkimages/medium/2/1-arts-on-wall-khajuraho-temples-india-panoramic-images.jpg);
+        }
+
+        #bg2 {
+            top: 0;
+            left: 0;
+            clip-path: polygon(0 100%, 50% 0, 100% 0%, 40% 100%);
+            background-image: url(https://dwq3yv87q1b43.cloudfront.net/public/blogs/fit-in/1200x675/Blog_20240217-760164062-1708169188.png);
+        }
+
+        #bg3 {
+            top: 0;
+            left: 0;
+            clip-path: polygon(100% 0%, 40% 100%, 100% 100%);
+            background-image: url(https://images.thequint.com/thequint%2F2021-03%2F9bb5beb1-8a24-41b2-a29e-bd18b543193f%2Fhero_image_DANDI.jpg);
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 300;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffffff;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ffffff;
+            color: #1a1a2e;
+        }
+
+        #btn1 { border-color: #ff6b6b; }
+        #btn2 { border-color: #4ecdc4; }
+        #btn3 { border-color: #feca57; }
+
+        #btn1:hover { background-color: #ff6b6b; }
+        #btn2:hover { background-color: #4ecdc4; }
+        #btn3:hover { background-color: #feca57; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="bg1" class="bg-image"></div>
+        <div id="bg2" class="bg-image"></div>
+        <div id="bg3" class="bg-image"></div>
+        <div class="content">
+            <h1>TIMELINES</h1>
+            <div class="buttons">
+                <a href="ancient.html" id="btn1" class="btn">Ancient History</a>
+                <a href="medieval.html" id="btn2" class="btn">Medieval History</a>
+                <a href="modern.html" id="btn3" class="btn">Modern History</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseover', () => {
+                const bgId = btn.id.replace('btn', 'bg');
+                document.getElementById(bgId).style.opacity = '1';
+            });
+
+            btn.addEventListener('mouseout', () => {
+                const bgId = btn.id.replace('btn', 'bg');
+                document.getElementById(bgId).style.opacity = '0.6';
+            });
+        });
+    </script>
+</body>
+</html>
